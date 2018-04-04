@@ -24,7 +24,23 @@ class Validation extends DBConfig
         } 
         return false;
     }
-  
+    public function escape_string($value)
+    {
+        return $this->connection->real_escape_string($value);
+    }
+    public function select($name, $lastName) 
+    { 
+        $query = "SELECT id FROM persons WHERE first_name = $name AND last_name= $lastName";
+        
+        $result = $this->connection->query($query);
+    
+        if ($result == false) {
+            echo 'Error: cannot find id from table persons' ;
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 
 ?>
