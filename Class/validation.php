@@ -12,14 +12,14 @@ class Validation extends DBConfig
         $msg= null;
         foreach ($fields as $value) {
             if (empty($data[$value])) {
-                $msg .= "$value field empty <br />";
+                $msg .= "$value puste <br />";
             }
         }
         return $msg;
     }
     public function is_valid($field)
     {
-        if (preg_match("/^[a-zA-Z ]*$/", $field)) {    
+        if (preg_match("/^[a-zA-Z\s]+/", $field)) {    
             return true;
         } 
         return false;
@@ -30,7 +30,7 @@ class Validation extends DBConfig
     }
     public function select($name, $lastName) 
     { 
-        $query = "SELECT id FROM persons WHERE first_name = $name AND last_name= $lastName";
+        $query = "SELECT id FROM persons WHERE first_name = '$name' AND last_name= '$lastName'";
         
         $result = $this->connection->query($query);
     
@@ -41,6 +41,22 @@ class Validation extends DBConfig
             return true;
         }
     }
+    public function getData($query)
+    {        
+        $result = $this->connection->query($query);
+        
+        if ($result == false) {
+            return false;
+        } 
+        
+        $rows = array();
+        
+        while ($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+        
+        return $rows;
+}
 }
 
 ?>

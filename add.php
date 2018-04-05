@@ -1,18 +1,11 @@
-<html>
+<?php
 
-<head>
-    <title>Add Data</title>
-</head>
-
-<body>
-    <?php
-
-include_once("classes/validation.php");
+include_once("Class/validation.php");
  
 
 $validation = new Validation();
  
-if(isset($_POST['Submit'])) {    
+   
     $name = $validation->escape_string($_POST['name']);
     $lastName = $validation->escape_string($_POST['lastName']);
     
@@ -25,24 +18,55 @@ if(isset($_POST['Submit'])) {
     if($msg != null) {
         echo $msg;        
         //link to the previous page
-        echo "<br/><a href='javascript:self.history.back();'>Go Back</a>";
+        echo "<br/><a href='javascript:self.history.back();'>Wróć</a>";
     } elseif (!$check_name) {
-        echo 'Please provide proper name.';
+        echo 'Podaj prawidłowe imię.';
     } elseif (!$check_lastName) {
-        echo 'Please provide proper last name.';
+        echo 'Podaj prawidłowe nazwisko.';
     }    
     else { 
-        // if all the fields are filled (not empty) 
-            
-        //insert data to database    
-        echo 'działa'
-        
-        //display success message
-        echo "<font color='green'>Data added successfully.";
-        echo "<br/><a href='index.php'>View Result</a>";
-    }
-}
-?>
-</body>
+        echo 'działa </br>';
+        /*$result= $validation->select($name, $lastName);
+        echo $result;*/
+        $query = "SELECT * FROM persons WHERE first_name = '$name' AND last_name= '$lastName'";
+        $result = $validation->getData($query);
+       
+           
+       }
+    
 
-</html>
+    
+    
+
+?>
+    <html>
+
+    <head>
+        <title>Homepage</title>
+    </head>
+
+    <body>
+
+
+        <table width='80%' border=0>
+
+            <tr bgcolor='#CCCCCC'>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Last Name</td>
+
+            </tr>
+            <?php 
+    foreach ($result as $key => $res) {
+    //while($res = mysqli_fetch_array($result)) {         
+        echo "<tr>";
+        echo "<td>".$res['id']."</td>";
+        echo "<td>".$res['first_name']."</td>";
+        echo "<td>".$res['last_name']."</td>";    
+              
+    }
+    ?>
+        </table>
+    </body>
+
+    </html>
