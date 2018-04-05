@@ -28,19 +28,6 @@ class Validation extends DBConfig
     {
         return $this->connection->real_escape_string($value);
     }
-    public function select($name, $lastName) 
-    { 
-        $query = "SELECT id FROM persons WHERE first_name = '$name' AND last_name= '$lastName'";
-        
-        $result = $this->connection->query($query);
-    
-        if ($result == false) {
-            echo 'Error: cannot find id from table persons' ;
-            return false;
-        } else {
-            return true;
-        }
-    }
     public function getData($query)
     {        
         $result = $this->connection->query($query);
@@ -56,7 +43,18 @@ class Validation extends DBConfig
         }
         
         return $rows;
-}
+    }
+    public function execute($query) 
+    {
+        $result = $this->connection->query($query);
+        
+        if ($result == false) {
+            echo 'Error: nie można wykonać';
+            return false;
+        } else {
+            return true;
+        }        
+    }
 }
 
 ?>

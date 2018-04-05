@@ -15,7 +15,7 @@ class DbConfig
             $this->connection = new mysqli($this->_host, $this->_username, $this->_password, $this->_database);
             
             if (!$this->connection) {
-                echo 'Cannot connect to database server';
+                echo 'Nie można połączyć z bazą danych';
                 exit;
             }            
         }    

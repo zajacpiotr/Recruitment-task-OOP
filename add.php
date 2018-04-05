@@ -25,48 +25,20 @@ $validation = new Validation();
         echo 'Podaj prawidłowe nazwisko.';
     }    
     else { 
-        echo 'działa </br>';
-        /*$result= $validation->select($name, $lastName);
-        echo $result;*/
         $query = "SELECT * FROM persons WHERE first_name = '$name' AND last_name= '$lastName'";
         $result = $validation->getData($query);
-       
-           
+       if (count($result)>0) {
+           $error= 'Taki sprzedawca znajduje się juz w bazie';
+           echo $error;
        }
+        if(empty($error)) {
+            $result = $validation->execute("INSERT INTO persons (first_name, last_name) VALUES('$name','$lastName')");
+        }
+       }
+
     
 
     
     
 
 ?>
-    <html>
-
-    <head>
-        <title>Homepage</title>
-    </head>
-
-    <body>
-
-
-        <table width='80%' border=0>
-
-            <tr bgcolor='#CCCCCC'>
-                <td>ID</td>
-                <td>Name</td>
-                <td>Last Name</td>
-
-            </tr>
-            <?php 
-    foreach ($result as $key => $res) {
-    //while($res = mysqli_fetch_array($result)) {         
-        echo "<tr>";
-        echo "<td>".$res['id']."</td>";
-        echo "<td>".$res['first_name']."</td>";
-        echo "<td>".$res['last_name']."</td>";    
-              
-    }
-    ?>
-        </table>
-    </body>
-
-    </html>
