@@ -19,8 +19,10 @@ class Validation extends DBConfig
     }
     public function is_valid($field)
     {
-        if (preg_match("/^[a-zA-Z\s]+/", $field)) {    
+        if (preg_match("/^[a-zA-Z\s]+/", $field)) {
+            if(strlen($field)>2) {
             return true;
+            }
         } 
         return false;
     }
@@ -54,6 +56,19 @@ class Validation extends DBConfig
         } else {
             return true;
         }        
+    }
+    public function insert($name, $lastName) 
+    { 
+        $query = "INSERT INTO persons (first_name, last_name) VALUES('$name','$lastName')";
+        
+        $result = $this->connection->query($query);
+    
+        if ($result == false) {
+            echo 'Error: cannot insert';
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 

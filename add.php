@@ -5,20 +5,15 @@ include_once("Class/validation.php");
 
 $validation = new Validation();
  
-   
     $name = $validation->escape_string($_POST['name']);
     $lastName = $validation->escape_string($_POST['lastName']);
     
-        
     $msg = $validation->check_empty($_POST, array('name', 'lastName'));
     $check_name = $validation->is_valid($_POST['name']);
     $check_lastName = $validation->is_valid($_POST['lastName']);
     
-    // checking empty fields
     if($msg != null) {
-        echo $msg;        
-        //link to the previous page
-        echo "<br/><a href='javascript:self.history.back();'>Wróć</a>";
+        echo $msg; 
     } elseif (!$check_name) {
         echo 'Podaj prawidłowe imię.';
     } elseif (!$check_lastName) {
@@ -32,7 +27,8 @@ $validation = new Validation();
            echo $error;
        }
         if(empty($error)) {
-            $result = $validation->execute("INSERT INTO persons (first_name, last_name) VALUES('$name','$lastName')");
+           //$result = $validation->execute("INSERT INTO persons (first_name, last_name) VALUES('$name','$lastName')");
+            $result = $validation->insert($name, $lastName);
         }
        }
 
