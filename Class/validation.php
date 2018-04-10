@@ -46,17 +46,6 @@ class Validation extends DBConfig
         
         return $rows;
     }
-    public function execute($query) 
-    {
-        $result = $this->connection->query($query);
-        
-        if ($result == false) {
-            echo 'Error: nie można wykonać';
-            return false;
-        } else {
-            return true;
-        }        
-    }
     public function insert($name, $lastName) 
     { 
         $query = "INSERT INTO persons (first_name, last_name) VALUES('$name','$lastName')";
