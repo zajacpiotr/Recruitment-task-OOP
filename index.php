@@ -2,7 +2,7 @@
 
 include_once("Class/validation.php");
  $name = $lastName = "";
-    $nameErr = $lastNameErr = $error = $msg = $errorMsg = "";
+    $nameErr = $lastNameErr = $error = $msg = $errorMsg = $insertMsg = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $validation = new Validation();
  
@@ -30,6 +30,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(empty($error)) {
            //$result = $validation->execute("INSERT INTO persons (first_name, last_name) VALUES('$name','$lastName')");
             $result = $validation->insert($name, $lastName);
+            if($result){
+                $insertMsg= "Sprzedwca dodany do bazy danych";
+            }
         }
        }
 
@@ -56,6 +59,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 color: green;
             }
 
+            table {
+                width: 400px;
+                margin: 40px auto;
+            }
+
         </style>
     </head>
 
@@ -74,12 +82,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <span class="error"><?php echo $lastNameErr; ?></span>
                 </p>
                 <input type="submit" value="Add" class="btn btn-primary">
+                <p class="success">
+                    <?php echo $insertMsg?>
+                </p>
                 <p class="error">
                     <?php echo $error;
                     echo $errorMsg?>
                 </p>
             </div>
         </form>
+        <?php
+        $query = "SELECT * FROM persons";                 
+        $result = $validation->getData($query);
+        ?>
+            <table>
+                <tr bgcolor='#CCCCCC'>
+                    <td>id</td>
+                    <td>Imie</td>
+                    <td>Nazwisko</td>
+                </tr>
+                <?php 
+    foreach ($result as $key => $res) {         
+        echo "<tr>";
+        echo "<td>".$res['id']."</td>";
+        echo "<td>".$res['first_name']."</td>";
+        echo "<td>".$res['last_name']."</td>";      
+    }
+    ?>
+            </table>
     </body>
 
     </html>
