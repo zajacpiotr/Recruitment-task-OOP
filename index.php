@@ -1,11 +1,10 @@
 <?php
 
 include_once("Class/validation.php");
- 
+ $name = $lastName = "";
+    $nameErr = $lastNameErr = $error = $msg = $errorMsg = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $validation = new Validation();
-    $name = $lastName = "";
-    $nameErr = $lastNameErr = $error = $msg = $errorMsg = "";
  
     $name = $validation->escape_string($_POST['name']);
     $lastName = $validation->escape_string($_POST['lastName']);
