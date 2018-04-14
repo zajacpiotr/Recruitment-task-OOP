@@ -45,26 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <meta charset="UTF-8">
         <title>Contact Form</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <style type="text/css">
-            .form-group {
-                width: 400px;
-                margin: 40px auto;
-            }
-
-            .error {
-                color: red;
-            }
-
-            .success {
-                color: green;
-            }
-
-            table {
-                width: 400px;
-                margin: 40px auto;
-            }
-
-        </style>
+        <link type="text/css" rel="stylesheet" href="style.css" />
     </head>
 
     <body>
@@ -95,21 +76,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $query = "SELECT * FROM persons";                 
         $result = $validation->getData($query);
         ?>
-            <table>
-                <tr bgcolor='#CCCCCC'>
-                    <td>id</td>
-                    <td>Imie</td>
-                    <td>Nazwisko</td>
-                </tr>
+            <div id="conteiner">
+                <div class="row">
+                    <div class='cell'>id</div>
+                    <div class='cell'>Imie</div>
+                    <div class='cell'>Nazwisko</div>
+                </div>
                 <?php 
     foreach ($result as $key => $res) {         
-        echo "<tr>";
-        echo "<td>".$res['id']."</td>";
-        echo "<td>".$res['first_name']."</td>";
-        echo "<td>".$res['last_name']."</td>";      
+        echo "<div class='row'>";
+        echo "<div class='cell'>".$res['id']."</div>";
+        echo "<div class='cell'>".$res['first_name']."</div>";
+        echo "<div class='cell'>".$res['last_name']."</div>";  
+        echo "</div>";
     }
     ?>
-            </table>
+            </div>
     </body>
 
     </html>

@@ -1,0 +1,26 @@
+.form-group {
+    width: 400px;
+    margin: 40px auto;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+
+#conteiner {
+    width: 400px;
+    margin: 40px auto;
+}
+
+.row:first-of-type {
+    background-color: #CCCCCC;
+}
+
+.cell {
+    float: left;
+    margin: 2px 20px;
+}
