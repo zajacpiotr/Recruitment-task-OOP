@@ -73,9 +73,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
         </form>
         <?php
-        $query = "SELECT * FROM persons";                 
-        $result = $validation->getData($query);
-        ?>
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $query = "SELECT * FROM persons";                 
+            $result = $validation->getData($query);
+            }
+            ?>
             <div id="conteiner">
                 <div class="row">
                     <div class='cell'>id</div>
@@ -83,15 +85,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <div class='cell'>Nazwisko</div>
                 </div>
                 <?php 
-    foreach ($result as $key => $res) {         
-        echo "<div class='row'>";
-        echo "<div class='cell'>".$res['id']."</div>";
-        echo "<div class='cell'>".$res['first_name']."</div>";
-        echo "<div class='cell'>".$res['last_name']."</div>";  
-        echo "</div>";
-    }
-    ?>
+            if($_SERVER["REQUEST_METHOD"] == "POST"){
+                foreach ($result as $key => $res) {         
+                echo "<div class='row'>";
+                echo "<div class='cell'>".$res['id']."</div>";
+                echo "<div class='cell'>".$res['first_name']."</div>";
+                echo "<div class='cell'>".$res['last_name']."</div>";  
+                echo "</div>";
+                        }
+                }
+            ?>
             </div>
+
     </body>
 
     </html>
